@@ -36,6 +36,6 @@ yarn-error.log*
 next-env.d.ts
 .vscode
 
-# tracks
-tracks
-remote
+# local media folders from the old version
+/tracks
+/remote
