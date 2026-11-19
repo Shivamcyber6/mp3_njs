@@ -1,47 +1,27 @@
 import './globals.css';
 import type { Metadata, Viewport } from 'next';
-import { Inter } from 'next/font/google';
-import { NowPlaying } from './now-playing';
-import { PlaybackProvider } from './playback-context';
-import { getAllPlaylists } from '@/lib/db/queries';
-import { OptimisticPlaylists } from './optimistic-playlists';
-import { PlaylistProvider } from './hooks/use-playlist';
-import { PlaybackControls } from './playback-controls';
 
 export const metadata: Metadata = {
-  title: 'Next.js Music Player',
-  description: 'A music player built with Next.js.',
+  title: 'Tempo · Music Player',
+  description:
+    'A fast, private music player that runs entirely in your browser. Drop in your own MP3s, build playlists and play them with keyboard shortcuts.',
+  applicationName: 'Tempo',
 };
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
   viewportFit: 'cover',
-  themeColor: '#0A0A0A',
+  themeColor: [
+    { media: '(prefers-color-scheme: dark)', color: '#0b0b0d' },
+    { media: '(prefers-color-scheme: light)', color: '#f6f5f2' },
+  ],
 };
 
-const inter = Inter({ subsets: ['latin'] });
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const playlistsPromise = getAllPlaylists();
-
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={inter.className}>
-      <body className="dark flex flex-col md:flex-row h-[100dvh] text-gray-200 bg-[#0A0A0A]">
-        <PlaybackProvider>
-          <PlaylistProvider playlistsPromise={playlistsPromise}>
-            <OptimisticPlaylists />
-            {children}
-          </PlaylistProvider>
-          <NowPlaying />
-          <PlaybackControls />
-        </PlaybackProvider>
-      </body>
+    <html lang="en">
+      <body>{children}</body>
     </html>
   );
 }

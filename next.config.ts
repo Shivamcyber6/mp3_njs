@@ -1,27 +1,9 @@
 import type { NextConfig } from 'next';
 
+// Fully static: the whole app runs in the browser, so it deploys to any static host (Vercel, GitHub Pages, …).
 const nextConfig: NextConfig = {
-  devIndicators: {
-    appIsrStatus: false,
-  },
-  experimental: {
-    ppr: true,
-    reactCompiler: true,
-    serverActions: {
-      bodySizeLimit: '5mb',
-    },
-  },
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'ijlyviwppydvzsmm.public.blob.vercel-storage.com',
-        port: '',
-        pathname: '/**',
-        search: '',
-      },
-    ],
-  },
+  output: 'export',
+  images: { unoptimized: true },
 };
 
 export default nextConfig;
